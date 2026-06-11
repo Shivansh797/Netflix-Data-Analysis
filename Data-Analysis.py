@@ -15,7 +15,6 @@ def Dataset_Assessment():
     dup=data[data.duplicated()]
     print(dup)                          #No Duplicate Values Present.  
 def Content_Analysis():
-    global data
     print(data["type"].value_counts())
     print(data["listed_in"].value_counts())
     data["rating"]=data["rating"].fillna(data["rating"].mode()[0])
@@ -46,7 +45,6 @@ def Content_Analysis():
     plt.savefig(os.path.join(save,"Top15_Genre.png"),dpi=300)
     plt.show()
 def Time_Based_Analysis():
-    global data
     print(data["release_year"].value_counts())
     data["duration"]=data["duration"].fillna(data["duration"].mode()[0])
     print(data.isnull().sum())
@@ -72,7 +70,6 @@ def Time_Based_Analysis():
     plt.savefig(os.path.join(save,"Most_Common_Duration.png"),dpi=300)
     plt.show()
 def Geographic_Analysis():
-    global data
     data.dropna(subset=["country"])
     print(data.isnull().sum())
     sns.set_style("whitegrid")
@@ -85,7 +82,6 @@ def Geographic_Analysis():
     plt.savefig(os.path.join(save,"Top_10_Countries.png"),dpi=300)
     plt.show()
 def People_Analysis():
-    global data
     data.dropna(subset=["director"])
     plt.figure(figsize=(10,6))
     sns.set_style("whitegrid")
@@ -124,7 +120,6 @@ def People_Analysis():
     plt.savefig(os.path.join(save,"Top_10_Performers.png"),dpi=300)
     plt.show()
 def Comparative_Analysis():
-    global data
     data["rating"]=data["rating"].fillna(data["rating"].mode()[0])
     data.dropna(subset=["country"])
     plt.figure(figsize=(12,6))
