@@ -19,6 +19,7 @@ def Content_Analysis():
     print(data["rating"].value_counts())
     count=data["type"].value_counts()
     plt.pie(count,labels=count.index,autopct="%1.1f",colors=("orange","blue"))
+    plt.legend(bbox_to_anchor=(1,0.5))
     plt.title("Distribution Of Movies Vs TV Shows")
     plt.show()
     sns.set_style("whitegrid")
@@ -34,7 +35,8 @@ def Content_Analysis():
     plt.title("Top 15 Content Genres On Netflix")
     plt.ylabel("Genre")
     plt.xlabel("No. Of Shows Released")
-    plt.tight_layout
+    plt.legend(title="Type Of Show",bbox_to_anchor=(1.05,1),loc="upper left")
+    plt.tight_layout()
     plt.show()
 def Time_Based_Analysis():
     global data
@@ -49,6 +51,7 @@ def Time_Based_Analysis():
     plt.title("Top 18 Years Which Delivered Highest No. Of Shows")
     plt.ylabel("Year")
     plt.xlabel("No. Of Shows Released")
+    plt.legend(title="Type Of Show",bbox_to_anchor=(0.8,0.6),loc="upper left")
     plt.tight_layout
     plt.show()
     plt.figure(figsize=(10,8))
@@ -57,6 +60,7 @@ def Time_Based_Analysis():
     plt.title("Most Common Duration Of Shows On Netflix")
     plt.xlabel("Duration")
     plt.ylabel("No. Of Shows")
+    plt.legend(title="Type Of Show",bbox_to_anchor=(0.8,1),loc="upper left")
     plt.show()
 def Geographic_Analysis():
     global data
@@ -68,6 +72,7 @@ def Geographic_Analysis():
     plt.title("Top 10 Countries Which Produces Highest No. Of Shows On Netflix")
     plt.xlabel("No. Of Shows")
     plt.ylabel("Country")
+    plt.legend(title="Type Of Show",bbox_to_anchor=(0.6,0.89),loc="upper left")
     plt.show()
 def People_Analysis():
     global data
@@ -104,8 +109,55 @@ def People_Analysis():
     plt.xlabel("No. Of Shows")
     plt.ylabel("Name Of Performers")
     plt.show()
-# Dataset_Assessment()
-# Content_Analysis()
-# Time_Based_Analysis()
-# Geographic_Analysis()
+def Comparative_Analysis():
+    global data
+    data["rating"]=data["rating"].fillna(data["rating"].mode()[0])
+    data.dropna(subset=["country"],inplace=True)
+    plt.figure(figsize=(12,6))
+    sns.set_style("whitegrid")
+    top5=data["country"].value_counts().head(5).index
+    sns.countplot(data[data["country"].isin(top5)],x="country",hue="rating",order=top5,palette="mako")
+    plt.title("Rating Types Of 5 Most Highest Show Producing Country On Netflix")
+    plt.xlabel("Country")
+    plt.ylabel("Content Count")
+    plt.legend(title="Rating",bbox_to_anchor=(1.05,1),loc="upper left")
+    plt.tight_layout()
+    plt.show()
+    plt.figure(figsize=(12,6))
+    sns.countplot(data=data[data["country"].isin(top5)],x="country",hue="type",order=top5,palette="mako")
+    plt.title("Show Types Of 5 Most Highest Show Producing Country On Netflix")
+    plt.xlabel("Country")
+    plt.ylabel("Content Count")
+    plt.legend(title="Type Of Show",bbox_to_anchor=(1.05,1),loc="upper left")
+    plt.tight_layout()
+    plt.show()
+    plt.figure(figsize=(12,6))
+    sns.countplot(data=data,x="type",hue="rating",palette="mako")
+    plt.xlabel("Type Of Show")
+    plt.ylabel("Content Count")
+    plt.legend(title="Type Of Show",bbox_to_anchor=(1.05,1),loc="upper left")
+    plt.tight_layout()
+    plt.show()
+    plt.figure(figsize=(12,6))
+    top10g=data["listed_in"].value_counts().head(10).index
+    sns.countplot(data=data[data["listed_in"].isin(top10g)],y="listed_in",hue="type",order=top10g,palette="mako")
+    plt.title("Top 10 Genre Distributed Among Movies And TV Shows")
+    plt.xlabel("Content Count")
+    plt.ylabel("Genre")
+    plt.legend(title="Type Of Show",bbox_to_anchor=(0.85,0.7),loc="upper left")
+    plt.show()
+    plt.figure(figsize=(12,6))
+    combo=data[(data["country"].isin(top5)) & (data["listed_in"].isin(top10g))]
+    sns.countplot(data=combo,x="country",hue="listed_in",order=top5,palette="mako")
+    plt.title("Top 10 Genres Distributed Across Top 5 Content Producing Countries On Netflix")
+    plt.xlabel("Country")
+    plt.ylabel("Content Count")
+    plt.legend(title="Type Of Show",bbox_to_anchor=(0.5,1),loc="upper left")
+    plt.show()
+
+Dataset_Assessment()
+Content_Analysis()
+Time_Based_Analysis()
+Geographic_Analysis()
 People_Analysis()
+Comparative_Analysis()
