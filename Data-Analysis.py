@@ -1,8 +1,12 @@
-import numpy as np
+import os
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 data=pd.read_csv(r"C:\Users\shiva\OneDrive\Desktop\netflix_titles.csv")
+script_directory = os.path.dirname(os.path.abspath(__file__))
+save = os.path.join(script_directory, "Graphs_And_Charts")
+if not os.path.exists(save):
+        os.makedirs(save)
 def Dataset_Assessment():
     print(data.head())
     print(data.dtypes)
@@ -21,6 +25,7 @@ def Content_Analysis():
     plt.pie(count,labels=count.index,autopct="%1.1f",colors=("orange","blue"))
     plt.legend(bbox_to_anchor=(1,0.5))
     plt.title("Distribution Of Movies Vs TV Shows")
+    plt.savefig(os.path.join(save,"TypeShow-PieChart.png"))
     plt.show()
     sns.set_style("whitegrid")
     sns.set_context("notebook")
@@ -28,6 +33,7 @@ def Content_Analysis():
     plt.xlabel("Rating Type")
     plt.ylabel("No. Of Shows")
     plt.title("Rating Distribution Chart")
+    plt.savefig(os.path.join(save,"Rating_Destribution.png"),dpi=300)
     plt.show()
     plt.figure(figsize=(10,8))
     top15=data["listed_in"].value_counts().head(15).index
@@ -37,6 +43,7 @@ def Content_Analysis():
     plt.xlabel("No. Of Shows Released")
     plt.legend(title="Type Of Show",bbox_to_anchor=(1.05,1),loc="upper left")
     plt.tight_layout()
+    plt.savefig(os.path.join(save,"Top15_Genre.png"),dpi=300)
     plt.show()
 def Time_Based_Analysis():
     global data
@@ -52,7 +59,8 @@ def Time_Based_Analysis():
     plt.ylabel("Year")
     plt.xlabel("No. Of Shows Released")
     plt.legend(title="Type Of Show",bbox_to_anchor=(0.8,0.6),loc="upper left")
-    plt.tight_layout
+    plt.tight_layout()
+    plt.savefig(os.path.join(save,"Highest_producing_year.png"),dpi=300)
     plt.show()
     plt.figure(figsize=(10,8))
     top5=data["duration"].value_counts().head(5).index
@@ -61,6 +69,7 @@ def Time_Based_Analysis():
     plt.xlabel("Duration")
     plt.ylabel("No. Of Shows")
     plt.legend(title="Type Of Show",bbox_to_anchor=(0.8,1),loc="upper left")
+    plt.savefig(os.path.join(save,"Most_Common_Duration.png"))
     plt.show()
 def Geographic_Analysis():
     global data
@@ -73,6 +82,7 @@ def Geographic_Analysis():
     plt.xlabel("No. Of Shows")
     plt.ylabel("Country")
     plt.legend(title="Type Of Show",bbox_to_anchor=(0.6,0.89),loc="upper left")
+    plt.savefig(os.path.join(save,"Top_10_Countries.png"))
     plt.show()
 def People_Analysis():
     global data
@@ -86,6 +96,7 @@ def People_Analysis():
     plt.title("Top 10 Movie Directors Of Netflix")
     plt.xlabel("No. Of Movies")
     plt.ylabel("Name Of Director")
+    plt.savefig(os.path.join(save,"Top_10_Movie_Directors.png"))
     plt.show()
     tdata=data[(data["type"]=="TV Show") & (data["director"].notna())]
     topt=tdata["director"].value_counts().head(10).index
@@ -94,6 +105,7 @@ def People_Analysis():
     plt.title("Top 10 TV Show Directors Of Netflix")
     plt.xlabel("No. Of TV Shows")
     plt.ylabel("Name Of Director")
+    plt.savefig(os.path.join(save,"Top_10_TVShow_Directors.png"))
     plt.show()
     topd=data["director"].value_counts().head(10).index
     plot=data[data["director"].isin(topd)]
@@ -101,6 +113,7 @@ def People_Analysis():
     plt.title("Top 10 Directors Of Netflix")
     plt.xlabel("No. Of Shows")
     plt.ylabel("Name Of Director")
+    plt.savefig(os.path.join(save,"Top_10_Directors.png"))
     plt.show()
     topc=data["cast"].value_counts().head(10).index
     plotc=data[data["cast"].isin(topc)]
@@ -108,6 +121,7 @@ def People_Analysis():
     plt.title("Performers that Have Worked In Highest No. Of Shows On Netflix")
     plt.xlabel("No. Of Shows")
     plt.ylabel("Name Of Performers")
+    plt.savefig(os.path.join(save,"Top_10_Performers.png"))
     plt.show()
 def Comparative_Analysis():
     global data
@@ -116,12 +130,13 @@ def Comparative_Analysis():
     plt.figure(figsize=(12,6))
     sns.set_style("whitegrid")
     top5=data["country"].value_counts().head(5).index
-    sns.countplot(data[data["country"].isin(top5)],x="country",hue="rating",order=top5,palette="mako")
+    sns.countplot(data=data[data["country"].isin(top5)],x="country",hue="rating",order=top5,palette="mako")
     plt.title("Rating Types Of 5 Most Highest Show Producing Country On Netflix")
     plt.xlabel("Country")
     plt.ylabel("Content Count")
     plt.legend(title="Rating",bbox_to_anchor=(1.05,1),loc="upper left")
     plt.tight_layout()
+    plt.savefig(os.path.join(save,"Rating-Country.png"))
     plt.show()
     plt.figure(figsize=(12,6))
     sns.countplot(data=data[data["country"].isin(top5)],x="country",hue="type",order=top5,palette="mako")
@@ -130,6 +145,7 @@ def Comparative_Analysis():
     plt.ylabel("Content Count")
     plt.legend(title="Type Of Show",bbox_to_anchor=(1.05,1),loc="upper left")
     plt.tight_layout()
+    plt.savefig(os.path.join(save,"ShowType-Country.png"))
     plt.show()
     plt.figure(figsize=(12,6))
     sns.countplot(data=data,x="type",hue="rating",palette="mako")
@@ -137,6 +153,7 @@ def Comparative_Analysis():
     plt.ylabel("Content Count")
     plt.legend(title="Type Of Show",bbox_to_anchor=(1.05,1),loc="upper left")
     plt.tight_layout()
+    plt.savefig(os.path.join(save,"Type-Rating.png"))
     plt.show()
     plt.figure(figsize=(12,6))
     top10g=data["listed_in"].value_counts().head(10).index
@@ -145,6 +162,7 @@ def Comparative_Analysis():
     plt.xlabel("Content Count")
     plt.ylabel("Genre")
     plt.legend(title="Type Of Show",bbox_to_anchor=(0.85,0.7),loc="upper left")
+    plt.savefig(os.path.join(save,"Genre-ShowType.png"))
     plt.show()
     plt.figure(figsize=(12,6))
     combo=data[(data["country"].isin(top5)) & (data["listed_in"].isin(top10g))]
@@ -153,6 +171,7 @@ def Comparative_Analysis():
     plt.xlabel("Country")
     plt.ylabel("Content Count")
     plt.legend(title="Type Of Show",bbox_to_anchor=(0.5,1),loc="upper left")
+    plt.savefig(os.path.join(save,"Genre-Country.png"))
     plt.show()
 
 Dataset_Assessment()
