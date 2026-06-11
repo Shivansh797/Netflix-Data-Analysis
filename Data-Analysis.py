@@ -62,13 +62,50 @@ def Geographic_Analysis():
     global data
     data.dropna(subset=["country"],inplace=True)
     print(data.isnull().sum())
+    sns.set_style("whitegrid")
     top10=data["country"].value_counts().head(10).index
     sns.countplot(data=data[data["country"].isin(top10)],y=data["country"],order=top10,palette="viridis",hue=data["type"])
     plt.title("Top 10 Countries Which Produces Highest No. Of Shows On Netflix")
     plt.xlabel("No. Of Shows")
     plt.ylabel("Country")
     plt.show()
-Dataset_Assessment()
-Content_Analysis()
-Time_Based_Analysis()
-Geographic_Analysis()
+def People_Analysis():
+    global data
+    data.dropna(subset=["director"],inplace=True)
+    plt.figure(figsize=(10,6))
+    sns.set_style("whitegrid")
+    mdata=data[(data["type"]=="Movie") & (data["director"].notna())]
+    topm=mdata["director"].value_counts().head(10).index
+    plotm=mdata[mdata["director"].isin(topm)]
+    sns.countplot(data=plotm,y="director",order=topm,palette="viridis")
+    plt.title("Top 10 Movie Directors Of Netflix")
+    plt.xlabel("No. Of Movies")
+    plt.ylabel("Name Of Director")
+    plt.show()
+    tdata=data[(data["type"]=="TV Show") & (data["director"].notna())]
+    topt=tdata["director"].value_counts().head(10).index
+    plott=tdata[tdata["director"].isin(topt)]
+    sns.countplot(data=plott,y="director",order=topt,palette="mako")
+    plt.title("Top 10 TV Show Directors Of Netflix")
+    plt.xlabel("No. Of TV Shows")
+    plt.ylabel("Name Of Director")
+    plt.show()
+    topd=data["director"].value_counts().head(10).index
+    plot=data[data["director"].isin(topd)]
+    sns.countplot(data=plot,y="director",order=topd,palette="mako")
+    plt.title("Top 10 Directors Of Netflix")
+    plt.xlabel("No. Of Shows")
+    plt.ylabel("Name Of Director")
+    plt.show()
+    topc=data["cast"].value_counts().head(10).index
+    plotc=data[data["cast"].isin(topc)]
+    sns.countplot(data=plotc,y="cast",order=topc,palette="mako")
+    plt.title("Performers that Have Worked In Highest No. Of Shows On Netflix")
+    plt.xlabel("No. Of Shows")
+    plt.ylabel("Name Of Performers")
+    plt.show()
+# Dataset_Assessment()
+# Content_Analysis()
+# Time_Based_Analysis()
+# Geographic_Analysis()
+People_Analysis()
