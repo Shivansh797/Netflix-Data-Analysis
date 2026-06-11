@@ -51,6 +51,24 @@ def Time_Based_Analysis():
     plt.xlabel("No. Of Shows Released")
     plt.tight_layout
     plt.show()
-# Dataset_Assessment()
-# Content_Analysis()
+    plt.figure(figsize=(10,8))
+    top5=data["duration"].value_counts().head(5).index
+    sns.countplot(data=data[data["duration"].isin(top5)],x=data["duration"],order=top5,palette="viridis",hue=data["type"])
+    plt.title("Most Common Duration Of Shows On Netflix")
+    plt.xlabel("Duration")
+    plt.ylabel("No. Of Shows")
+    plt.show()
+def Geographic_Analysis():
+    global data
+    data.dropna(subset=["country"],inplace=True)
+    print(data.isnull().sum())
+    top10=data["country"].value_counts().head(10).index
+    sns.countplot(data=data[data["country"].isin(top10)],y=data["country"],order=top10,palette="viridis",hue=data["type"])
+    plt.title("Top 10 Countries Which Produces Highest No. Of Shows On Netflix")
+    plt.xlabel("No. Of Shows")
+    plt.ylabel("Country")
+    plt.show()
+Dataset_Assessment()
+Content_Analysis()
 Time_Based_Analysis()
+Geographic_Analysis()
