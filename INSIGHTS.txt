@@ -3,8 +3,7 @@ Major Insights Obtained From Data:
 -> Movies Contribute 69.6 Percent Shows On Netflix , While TV Shows contributes 30.4 %.
 ->TV-MA and TV-14 are most prominent Rating Categories on Netflix.
 ->In the top15 highest show producing genre only 1 that is Kid's TV is a TV show rest are all Movies.
-->2018,2017,2019 and 2020 are the years in which Netflix produced most of the shows ,this data also tells about the effect of 
-corona virus epedemic which forced people to stay inside their house due to lockdown.
+->2018,2017,2019 and 2020 are the years in which Netflix produced most of the shows.
 ->1 Season Tv Shows are more common than any other duration of TV shows.
 ->USA is the largest show producing country on Netflix in both Movie and TV show categories ,followed by India ,UK,Japan and South Korea.
 ->India is the second most Content Producing country both in terms of overall shows and movies but intrestingly it produces very
@@ -28,8 +27,7 @@ Conclusion:
 
 This comprehensive analysis reveals that Netflix remains a heavily movie-centric platform, with
 feature films comprising roughly 70% of its catalog. The global library experienced an
-unprecedented production boom between 2017 and 2020, heavily accelerated by the COVID-19
-pandemic as global lockdowns dramatically drove up the demand for home entertainment.
+unprecedented production boom between 2017 and 2020.
 Geographically, the United States anchors the platform as the undisputed leader in both film
 and television production, prioritizing mature content (TV-MA) centered around documentaries and stand-up comedy.
 Interestingly, while India stands out as the second-largest content contributor overall, its production model is almost entirely dominated by movies

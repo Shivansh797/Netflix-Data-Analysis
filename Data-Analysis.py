@@ -73,7 +73,7 @@ def Time_Based_Analysis():
     plt.show()
 def Geographic_Analysis():
     global data
-    data.dropna(subset=["country"],inplace=True)
+    data.dropna(subset=["country"])
     print(data.isnull().sum())
     sns.set_style("whitegrid")
     top10=data["country"].value_counts().head(10).index
@@ -86,7 +86,7 @@ def Geographic_Analysis():
     plt.show()
 def People_Analysis():
     global data
-    data.dropna(subset=["director"],inplace=True)
+    data.dropna(subset=["director"])
     plt.figure(figsize=(10,6))
     sns.set_style("whitegrid")
     mdata=data[(data["type"]=="Movie") & (data["director"].notna())]
@@ -126,7 +126,7 @@ def People_Analysis():
 def Comparative_Analysis():
     global data
     data["rating"]=data["rating"].fillna(data["rating"].mode()[0])
-    data.dropna(subset=["country"],inplace=True)
+    data.dropna(subset=["country"])
     plt.figure(figsize=(12,6))
     sns.set_style("whitegrid")
     top5=data["country"].value_counts().head(5).index
